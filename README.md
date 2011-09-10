@@ -4,11 +4,13 @@ Knockout Proxy creates viewModel's initial property by data binding spec.
 
 * sample
 
-  * HTML
+HTML
+----
 
     <input type="text" data-bind="value: model(subModel).observer(propertyName)">
 
-  * JavaScript
+JavaScript
+----
 
     var viewModel = {};
     applyBindings(ko.proxy(viewModel));
