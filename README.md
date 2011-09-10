@@ -10,8 +10,11 @@ HTML
 JavaScript
 
     var viewModel = {};
+    
     applyBindings(ko.proxy(viewModel));
+    
     console.log(viewModel.subModel.propertyName()); // #=> ""
+    
     viewModel.subModel.propertyName("hoge"); // this cause input element's value to "hoge".
 
 **Knockout** Home: [http://knockoutjs.com/documentation/introduction.html](http://knockoutjs.com/documentation/introduction.html)
