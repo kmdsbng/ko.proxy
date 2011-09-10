@@ -14,6 +14,7 @@ JavaScript
     console.log(viewModel.subModel.propertyName()); // #=> ""
     viewModel.subModel.propertyName("hoge"); // this cause input element's value to "hoge".
 
+**Knockout** Home: [http://knockoutjs.com/documentation/introduction.html](http://knockoutjs.com/documentation/introduction.html)
 
 License: MIT [http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php)
 
