@@ -57,6 +57,33 @@ describe('Proxy: observer', {
   }
 });
 
+describe('Proxy: observableArray', {
+  before_each: prepareTestNode,
+
+  'Create observer if property is null': function () {
+    var data = {}
+    ko.proxy(data).observableArray("values");
+    value_of(ko.isObservable(data.values)).should_be(true);
+    value_of(typeof data.values.removeAll).should_be('function');
+    value_of(ko.isObservable(data.values.length)).should_be(0);
+  },
+
+  'Use default array if property is already array': function () {
+    var data = {values: ['hoge']}
+    ko.proxy(data).observableArray("values");
+    value_of(data.values().length).should_be(1);
+    value_of(data.values()[0]).should_be('hoge');
+  },
+
+  'Use default observableArray if property is already observableArray': function () {
+    var data = {values: ko.observableArray(['hoge'])}
+    ko.proxy(data).observableArray("values");
+    value_of(data.values().length).should_be(1);
+    value_of(data.values()[0]).should_be('hoge');
+  }
+
+});
+
 describe('Proxy: model', {
   before_each: prepareTestNode,
 
@@ -131,4 +158,24 @@ describe('Proxy: model', {
     value_of(testNode.childNodes[0].value).should_be(1);
   }
 });
+
+
+describe('Proxy: textFormat', {
+  before_each: prepareTestNode,
+
+  'Create model and observable': function () {
+    var data = {}
+    ko.proxy(data).observer("hoge.moge.koge");
+    value_of(ko.isObservable(data.hoge.moge.koge)).should_be(true);
+  },
+
+  'Create model and observableArray': function () {
+    var data = {}
+    ko.proxy(data).observableArray("hoge.moge.koges");
+    value_of(ko.isObservable(data.hoge.moge.koges)).should_be(true);
+    value_of(typeof data.hoge.moge.koges.removeAll).should_be('function');
+  }
+});
+
+
 
