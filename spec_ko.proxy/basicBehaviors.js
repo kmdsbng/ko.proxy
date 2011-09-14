@@ -174,6 +174,14 @@ describe('Proxy: textFormat', {
     ko.proxy(data).observableArray("hoge.moge.koges");
     value_of(ko.isObservable(data.hoge.moge.koges)).should_be(true);
     value_of(typeof data.hoge.moge.koges.removeAll).should_be('function');
+  },
+
+  'Create nested model': function () {
+    var data = {}
+    ko.proxy(data).model("hoge.moge").end();
+    value_of(ko.isObservable(data.hoge.moge)).should_be(false);
+    value_of(typeof data.hoge.moge).should_be('object');
+    value_of(!!data.hoge.moge).should_be(true);
   }
 });
 
