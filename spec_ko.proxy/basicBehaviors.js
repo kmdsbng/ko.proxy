@@ -80,7 +80,22 @@ describe('Proxy: observableArray', {
     ko.proxy(data).observableArray("values");
     value_of(data.values().length).should_be(1);
     value_of(data.values()[0]).should_be('hoge');
+  },
+
+  'Leaf node is xxx[1] style, return observable array': function () {
+    var data = {}
+    ko.proxy(data).observableArray("values[1]");
+    value_of(ko.isObservable(data.values)).should_be(true);
+    value_of(ko.isObservable(data.values()[1])).should_be(true);
+  },
+
+  'Leaf node is xxx[1] style, also you can use default value': function () {
+    var data = {values: [[], ['hoge']]}
+    ko.proxy(data).observableArray("values[1]");
+    value_of(data.values()[0]()).should_be([]);
+    value_of(data.values()[1]()).should_be(['hoge']);
   }
+
 
 });
 
@@ -185,5 +200,16 @@ describe('Proxy: textFormat', {
   }
 });
 
+
+describe('Proxy: observableArrayNode', {
+  'If binding includes xxx()[] format, create observable_array': function () {
+    var errorPath = "property.property_staffs[0].errors.staff_id";
+    var binding = "ko.proxy(viewModel).observer('" + errorPath.replace(/\[/g, '()[') + "')";
+    var viewModel = {}
+    eval(binding);
+    value_of(ko.isObservable(viewModel.property.property_staffs()[0].errors.staff_id)).should_be(true);
+  }
+
+});
 
 
